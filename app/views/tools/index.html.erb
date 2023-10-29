@@ -1,0 +1,49 @@
+<h1>spotool</h1>
+<% if @tool.errors.any? %>
+  <%= @tool.errors.count %>件のerrorが発生しました
+  <ul>
+    <% @tool.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title </th>
+      <th>Body</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+    <tbody>
+       <% @tools.each do |tool| %>
+       <tr>
+         <td><%= tool.title %></td>
+         <td><%= tool.body %></td>
+         <td><%= link_to "show", tool_path(tool.id)%></td>
+         <td><%= link_to "edit", edit_tool_path(tool.id)%></td>
+         <td><%= link_to "Destroy", tool_path(tool.id), method: :delete, "data-confirm" => "Are you sure？" %>></td>
+       </tr>
+       <% end %>
+    </tbody>
+</table>
+<h2>New tool</h2>
+
+
+<!-- 新しい投稿フォーム -->
+<%= form_with model: @tool, url: tools_path, local: true do |form| %>
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :body %>
+    <%= form.text_area :body %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Create Tool' %>
+  </div>
+<% end %>
